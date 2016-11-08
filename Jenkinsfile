@@ -1,21 +1,46 @@
 node {
+    // Environment setup
     mvnHome = tool name:'maven-3.3.9', type: 'maven'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
 
-    stage "Checkout from SCM"
-    checkout scm
-
-    // if not release
-    stage "Build project"
-	sh "${mvnHome}/bin/mvn deploy"
-
-    stage "Build site"
-	sh "${mvnHome}/bin/mvn site"
-
-    stage "Code Quality Analysis"
-    withSonarQubeEnv {
-        sh "${mvnHome}/bin/mvn sonar:sonar"
+    stage("Checkout") {
+        checkout scm
     }
-    
-    stage "Publish Maven Site"
-    publishHTML (target: [ reportDir: "target/site", reportFiles: 'index.html', reportName: 'Maven Site' ])
+
+    if (env.BRANCH_NAME == "master") {
+        stage("Build") {
+            mvn 'deploy site'
+        }
+        stage("Code Quality Analysis") {
+            withSonarQubeEnv {
+                mvn 'org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+            }
+        }
+        boolean release = false
+        stage("Confirm Release") {
+            try {
+                timeout(time: 1, unit: 'MINUTES') {
+                    input 'Release to Central?'
+                    release = true
+                }
+            } catch (ignored) {
+            }
+        }
+        if (release) {
+            stage("Release") {
+                echo "mvn 'release:prepare'"
+                echo "mvn 'release:perform'"
+            }
+        }
+    } else {
+        stage("Build") {
+            mvn 'install site'
+        }
+    }
+
+}
+@NonCPS
+def mvn(String args) {
+    sh "mvn --batch-mode ${args}"
+    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
 }
