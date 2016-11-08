@@ -2,7 +2,6 @@ node {
     mvn = tool name:'maven-3.3.9', type: 'maven'
 
     stage "Checkout from SCM"
-    checkout scm
         sh 'ls -lR'
 
     // if not release
