@@ -17,5 +17,5 @@ node {
     }
     
     stage "Publish Maven Site"
-    publishHTML (target: [ reportDir: "target/site", reportFiles: 'index.html', reportName: 'Maven Site' ])
+    // publishHTML (target: [ reportDir: "target/site", reportFiles: 'index.html', reportName: 'Maven Site', keepAll:true ])
 }
