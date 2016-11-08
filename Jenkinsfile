@@ -2,8 +2,8 @@ node {
     mvnHome = tool name:'maven-3.3.9', type: 'maven'
 
     stage "Checkout from SCM"
+	sh "ls -lR"
     checkout scm
-
     // if not release
     stage "Build project"
 	sh "${mvnHome}/bin/mvn deploy"
