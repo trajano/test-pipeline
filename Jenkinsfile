@@ -15,6 +15,7 @@ node {
         withSonarQubeEnv {
             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
+        input message: "Release?"
     } else {
         stage "Build pull request"
         mvn 'install site'
