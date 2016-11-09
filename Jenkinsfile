@@ -30,8 +30,15 @@ node {
 	        }
 	        if (release) {
 	            stage("Release") {
-	                echo "mvn 'release:prepare'"
-	                echo "mvn 'release:perform'"
+	            	try {
+						slackSend "Release started - ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+		                echo "mvn 'release:prepare'"
+		                echo "mvn 'release:perform'"
+						slackSend "Release completed - ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+		            } catch (error) {
+						slackSend "Release aborted - ${env.JOB_NAME} ${env.BUILD_NUMBER} = ${error}"
+						throw error
+		            }
 	            }
 	        }
 	    } else {
