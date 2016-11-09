@@ -22,6 +22,7 @@ node {
     }
 
 }
+@NonCPS
 def mvn(String... targets) {
     targets.each {
         sh "mvn ${it}"
