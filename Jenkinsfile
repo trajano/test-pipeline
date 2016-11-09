@@ -7,19 +7,24 @@ node {
     stage "Checkout from SCM"
     checkout scm
 
-    stage "Build project"
     if (env.BRANCH_NAME == "master") {
-        // deploy SNAPSHOT if master
-        sh 'mvn deploy site'
+        stage "Build master"
+        mvn 'deploy', 'site'
         stage "Code Quality Analysis"
+        junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         withSonarQubeEnv {
             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
     } else {
-        sh 'mvn install site'
+        stage "Build pull request"
+        mvn 'install', 'site'
         junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
     }
-    stage "Publish Maven Site"
-    //publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site', reportFiles: 'index.html', reportName: 'Maven Site'])
 
+}
+def mvn(String... targets) {
+    targets.each {
+        sh "mvn ${it}"
+    }
+    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
 }
