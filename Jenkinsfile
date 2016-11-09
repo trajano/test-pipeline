@@ -17,11 +17,15 @@ node {
                 mvn 'org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
             }
         }
-        stage("Release") {
+        try {
             timeout(time: 1, unit: 'MINUTES') {
-            input 'Release to Central?'
-            echo "mvn 'release:prepare'"
-            echo "mvn 'release:perform'"
+                input 'Release to Central?'
+            }
+            stage("Release") {
+                echo "mvn 'release:prepare'"
+                echo "mvn 'release:perform'"
+            }
+        } catch {
         }
     } else {
         stage("Build") {
@@ -32,6 +36,6 @@ node {
 }
 @NonCPS
 def mvn(String args) {
-    sh "mvn ${args}"
+    sh "mvn --batch-mode ${args}"
     junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
 }
