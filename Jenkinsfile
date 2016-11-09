@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 node {
     mvn = tool name:'maven-3.3.9', type: 'maven'
-     env.PATH = "${mvn}/bin:${env.PATH}"
+    env.PATH = "${mvn}/bin:${env.PATH}"
 
     stage "Checkout from SCM"
-        sh 'ls -lR'
+    sh 'ls -lR'
 
     // if not release
     stage "Build project"
