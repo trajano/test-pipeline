@@ -1,6 +1,6 @@
 node {
-    mvn = tool name:'maven-3.3.9', type: 'maven'
-    env.PATH = "${mvn}/bin:${env.PATH}"
+    mvnHome = tool name:'maven-3.3.9', type: 'maven'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
 
     stage "Checkout from SCM"
     sh 'ls -lR'
