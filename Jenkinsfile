@@ -16,8 +16,10 @@ node {
     }
     stage "Publish Maven Site"
     junit allowEmptyResults: true, testResults: '**/target/test-reports/*.xml'
-    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site', reportFiles: '**', reportName: 'Maven Site'])
+    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site', reportFiles: 'index.html', reportName: 'Maven Site'])
 
     stage "Code Quality Analysis"
-
+    withSonarQubeEnv {
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    }
 }
