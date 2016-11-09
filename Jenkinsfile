@@ -2,7 +2,7 @@ node {
     // Environment setup
     mvnHome = tool name:'maven-3.3.9', type: 'maven'
     env.PATH = "${mvnHome}/bin:${env.PATH}"
-    sh 'env'
+    sh 'env | sort'
 
     stage "Checkout from SCM"
     checkout scm
