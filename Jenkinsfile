@@ -19,6 +19,9 @@ node {
             }
         }
         input message: "Release?"
+        stage("Perform maven release") {
+
+        }
     } else {
         stage("Build pull request") {
             mvn 'install site'
