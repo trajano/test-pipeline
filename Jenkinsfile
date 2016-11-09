@@ -3,14 +3,10 @@ node {
     env.PATH = "${mvnHome}/bin:${env.PATH}"
 
     stage "Checkout from SCM"
-
+    checkout scm
     // if not release
     stage "Build project"
     // if not master
 
     stage "Code Quality Analysis"
-    withSonarQubeEnv {
-        sh 'env'
-        sh 'echo ' + mvn
-    }
 }
