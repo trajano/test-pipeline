@@ -12,7 +12,6 @@ node {
             mvn 'deploy site'
         }
         stage("Code Quality Analysis") {
-            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
             withSonarQubeEnv {
                 mvn 'org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
             }
