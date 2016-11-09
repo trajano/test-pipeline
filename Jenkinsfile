@@ -16,6 +16,7 @@ node {
     }
     stage "Publish Maven Site"
     junit allowEmptyResults: true, testResults: '**/target/test-reports/*.xml'
+    publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'target/site', reportFiles: 'index.html', reportName: 'Maven Site'])
 
     stage "Code Quality Analysis"
 
