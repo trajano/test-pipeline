@@ -17,12 +17,14 @@ node {
             }
         }
         boolean release = false
-        try {
-            timeout(time: 1, unit: 'MINUTES') {
-                input 'Release to Central?'
-                release = true
+        stage("Confirm Release") {
+            try {
+                timeout(time: 1, unit: 'MINUTES') {
+                    input 'Release to Central?'
+                    release = true
+                }
+            } catch (ignored) {
             }
-        } catch (ignored) {
         }
         if (release) {
             stage("Release") {
