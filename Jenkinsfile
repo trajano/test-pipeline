@@ -16,15 +16,19 @@ node {
                 mvn 'org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
             }
         }
+        boolean release = false
         try {
             timeout(time: 1, unit: 'MINUTES') {
                 input 'Release to Central?'
+                release = true
             }
+        } catch (ignored) {
+        }
+        if (release) {
             stage("Release") {
                 echo "mvn 'release:prepare'"
                 echo "mvn 'release:perform'"
             }
-        } catch (ignored) {
         }
     } else {
         stage("Build") {
