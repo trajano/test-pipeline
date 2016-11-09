@@ -25,7 +25,6 @@ node {
     } else {
         stage("Build pull request") {
             mvn 'install site'
-            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
     }
 
