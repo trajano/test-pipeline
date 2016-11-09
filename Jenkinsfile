@@ -24,7 +24,7 @@ node {
                 echo "mvn 'release:prepare'"
                 echo "mvn 'release:perform'"
             }
-        } catch {
+        } catch (ignored) {
         }
     } else {
         stage("Build") {
