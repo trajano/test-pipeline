@@ -9,7 +9,7 @@ node {
 
     if (env.BRANCH_NAME == "master") {
         stage "Build master"
-        mvn 'deploy', 'site'
+        mvn 'deploy site'
         stage "Code Quality Analysis"
         junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         withSonarQubeEnv {
@@ -17,15 +17,13 @@ node {
         }
     } else {
         stage "Build pull request"
-        mvn 'install', 'site'
+        mvn 'install site'
         junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
     }
 
 }
 @NonCPS
-def mvn(String... targets) {
-    targets.each {
-        sh "mvn ${it}"
-    }
+def mvn(String args) {
+    sh "mvn ${args}"
     junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
 }
