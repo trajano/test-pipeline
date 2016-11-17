@@ -18,6 +18,7 @@ node {
         }
         boolean release = false
         stage("Confirm Release") {
+            // mail
             try {
                 timeout(time: 1, unit: 'MINUTES') {
                     input 'Release to Central?'
