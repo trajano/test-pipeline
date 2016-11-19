@@ -1,8 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
-  - oraclejdk7
-  - openjdk7
 sudo: false
 cache:
   directories:
@@ -19,4 +17,4 @@ install:
 - mvn dependency:go-offline
 script:
 - mvn install site
-- '[ "$TRAVIS_JDK_VERSION" != "oraclejdk8" ] || mvn sonar:sonar'
+- mvn sonar:sonar
