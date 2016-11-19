@@ -3,13 +3,13 @@ jdk: oraclejdk8
 sudo: false
 cache:
   directories:
-  - $HOME/.m2
-  - $HOME/.sonar/cache
+  - "$HOME/.m2"
+  - "$HOME/.sonar/cache"
 addons:
   sonarqube: true
 env:
   global:
-  - secure: pI0+f18LW15cjtGZK9/Hfb6xd9Hzalf/FMWVh0xJ7BEpfaZ6v/cCREJUhr4KBVY3wv+VIgmOD8/gmJvIID15bi/p1bLTxlVSHG4PJa64w4WTQED0SqZXij/qaLoDaDQd5+zL7v8Wq7GpqZCuHIdOgiHTSBGHoVlYkirvBBxbesk=
-install: /bin/true
-script: 
-- mvn clean install sonar:sonar -Dsonar.login=$SONAR_TOKEN
+  - secure: AAIZe7ddGqdsnpULTwlklVKG2bmrhs7z7p3HAm+r2b8ahAKnz1yJZgdBzHh5Jf3UDB7An574NiSnUyVotKQGzLajb2wuqfLatutweCv35ZqNUiAGvR6nFjb4Vz97ry/J+Uz5uw3t4FcydUohU3xaBSHJjGh+jArIJs0cHtxFAzKgwZwDRxbYcUGxzndGYYK+aghwHJsFRDo/46gveU6Khlm0R+hY2DbXRRPqnyInI+IL7O5Bt4ELDUB6jRaXEuZIyexkU8LaQhqlHNp5yIoVsodO2EI8AGuCJfAdgwx8E2VP+vBlvhOKsiwWQB4YgMrGn/ArnfA0/VOYZZEWQtJsSQoq+uvs2CVt7ZpRxbDz5antNHvkyXc1qONCVI5WJu90egyqGQlZqov2VukBYkpaopTJXfV4ZYVaan5mao/nZApRfwmeTKfT5FlHr4NVCwBknMESIr84e03TjjFwPlje9ND5MZeU+6TmjId4SOdSyugWN3TTuy7kdlC2DP/eITCS//3uZo18nta0o7FWaRSA/DpgfOs6uMUYDbQtnLuoJpv5HPChM4QcAQWshvajXugujLse99P3SZ86gni0N5toJF36Nvbsp/ltSkMrxb2pTF/e+xwGDQc96dYTmbYeVe17MzwcVwaNwVLviDvenoDlwyLSQ7uI1Fj0N2tu1k8CTVs=
+  - secure: FyDnMLKV9jiNXGJLnt22oW/MNSq45kblQiTc2aQlt5gkmLHfjbXGMLaAALHqTXuL+C4zSfVGuq2foiYDNU+zAt8QsOnSB4O0P3KfoBW/8bMB2slgw1Ru9mKI3MeuwFqiw2REeFMgK6DZfISF0ipgt/za9Rym7+e6nx04Py1FUxwpE9M4ooGop/KRgS7W6DVI4kEyLBpcI3jGvdj1Bgrc57XbR/AGvLPbjsMDYilbhnkyslMByyZ+MKu0MbgBxbEpygU5g5edg3IASpD+l7z0ArLot60rmqtiDTfPD2isP+bRY4PnAdC//O0EYgug49tBhUEqouEGWD6FT8aivaSRX4J0IYY/GwxoG7P0tC3NrBfajseBP+ytfg/YEqEkm66nCzQb2c8cqOfQxzJaiTJm6RCWu1J3OLPneyMWjzaKbvd31so8dQoKpwdNzuw8pLIgmPsaMW0L5HL9o1q7mUe4+CxM+eCel9ezOyEzmVPOEqitnrhYlPuxCXubRp/gIVr4W0o9RSKVrzTPmxp+SloYua6y0uzifWY4Xfhwy32p/8LimVsqOTDsulCYY2vBqx8GejLcA7x6qK2/pEfhtY+OxOM9GP556E5LNi5uUakuiuEVz/pdm2vJ/StxruUldsiaq9McU2QX+ZrI7UjySIvy6sQThKXoZ/oGqVUblnbE1Yg=
+script:
+- mvn sonar:sonar
